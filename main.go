@@ -1,7 +1,7 @@
 package main
 
 import (
-	"GoWolf/addrSurvive"
+	"GoWolf/icmpSurvive"
 	"GoWolf/portScan"
 	"bufio"
 	"errors"
@@ -37,11 +37,11 @@ var ini = `
 
 func init() {
 	flag.StringVar(&addr, "a", "", "目标地址")
-	flag.StringVar(&fileName, "f", "", "目表地址文件")
+	flag.StringVar(&fileName, "f", "", "目标地址文件")
 	flag.StringVar(&port, "p", "1-100", "目标端口地址, 单个仅输入一个端口, 多个用-分开,默认1-100")
 	flag.IntVar(&threading, "t", 5, "设置go程数，默认10个")
 	flag.IntVar(&jobNum, "J", 200, "设置工作区缓冲数量, 默认200")
-	flag.IntVar(&finishNum, "O", 200, "设置宛城区缓冲数量, 默认200")
+	flag.IntVar(&finishNum, "O", 200, "设置完成区缓冲数量, 默认200")
 	flag.IntVar(&icmp, "i", 1, "icmp存活扫描，默认关闭1, 开启0")
 	fmt.Printf("%s", ini)
 }
@@ -60,7 +60,7 @@ func fileAddr() {
 }
 
 func icmpSave() {
-	i := addrSurvive.NewScan(threading, addrs, jobNum, finishNum)
+	i := icmpSurvive.NewScan(threading, addrs, jobNum, finishNum)
 	i.Start()
 	i.Close()
 }

@@ -1,4 +1,4 @@
-package addrSurvive
+package icmpSurvive
 
 import (
 	"bytes"
@@ -85,15 +85,16 @@ func (g goIcmpJob) sendICMP(domain string) {
 
 	recv := make([]byte, 1024)
 	if _, err := conn.Read(recv); err != nil {
-		m = fmt.Sprintf("[-]%v down\r", domain)
+		m = fmt.Sprintf("[-]%v down", domain)
 	} else {
-		m = fmt.Sprintf("[+]%v   up\n", domain)
+		m = fmt.Sprintf("[+]%v   up", domain)
 	}
 	g.finish <- m
 	_ = conn.Close()
 }
 
 func (g goIcmpJob) Start() {
+	log.Println("开始ICMP存活扫描……")
 	var wg sync.WaitGroup
 	for i := 0; i < g.gos; i++ {
 		go g.goroutine()
@@ -102,7 +103,7 @@ func (g goIcmpJob) Start() {
 	go g.pushJob(&wg)
 	go g.getFinish(&wg)
 	wg.Wait()
-
+	log.Println("扫描结束")
 }
 
 func (g goIcmpJob) Close() {
@@ -125,7 +126,7 @@ func (g goIcmpJob) pushJob(wg *sync.WaitGroup) {
 
 func (g goIcmpJob) getFinish(wg *sync.WaitGroup) {
 	for i := range g.finish {
-		fmt.Printf("%s", i)
+		fmt.Println(i)
 		g.finishNum++
 		if g.finishNum == len(g.addrs) {
 			wg.Done()
