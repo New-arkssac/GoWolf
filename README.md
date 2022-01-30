@@ -1,4 +1,5 @@
 # GoWolf
+
 ---
 
 ## 前言
@@ -41,3 +42,20 @@
 
 > 单端口扫描
 
+![image.png](https://pwl.stackoverflow.wiki/2022/01/image-bf07f145.png)
+
+> 多端口扫描
+
+![image.png](https://pwl.stackoverflow.wiki/2022/01/image-46a49c9d.png)
+
+> 多地址扫描
+
+![image.png](https://pwl.stackoverflow.wiki/2022/01/image-9d7b00ad.png)
+
+> ICMP协议存活扫描
+
+![image.png](https://pwl.stackoverflow.wiki/2022/01/image-2e595d94.png)
+
+## 注释
+
+因为会使用到原始自定义协议包，所以部分功能无法在`windows`和`windows wsl`上运行，所以建议在linux环境下使用`GoWolf`
